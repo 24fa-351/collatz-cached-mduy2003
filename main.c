@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     unsigned long long int num_of_values;
     unsigned long long int min;
     unsigned long long int max;
-    char* cache_policy;
+    char *cache_policy;
     int cache_size;
     FILE *file = fopen("results.csv", "w+");
 
@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
     srand(time(NULL));
 
     fprintf(file, "Number, Number of Steps\n");
-    for (size_t ix = 0; ix < num_of_values; ++ix)
+    for (size_t current_value = 0; current_value < num_of_values; ++current_value)
     {
         unsigned long long int random_number = rand() % (max - min + 1) + min;
         unsigned long long int num_of_steps = collatz_conjecture_wrapper(random_number);
