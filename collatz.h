@@ -1,14 +1,14 @@
 unsigned long long int collatz_conjecture(unsigned long long int value)
 {
-    
-        if (value % 2 == 0)
-        {
-            value /= 2;
-        }
-        else
-        {   
-            value = 3 * value + 1;
-        }
+
+    if (value % 2 == 0)
+    {
+        value /= 2;
+    }
+    else
+    {
+        value = 3 * value + 1;
+    }
     return value;
 }
 

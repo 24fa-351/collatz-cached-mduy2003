@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     for (size_t ix = 0; ix < num_of_values; ++ix)
     {
         unsigned long long int random_number = rand() % (max - min + 1) + min;
-        unsigned long long int num_of_steps = collatz_conjecture(random_number);
+        unsigned long long int num_of_steps = collatz_conjecture_wrapper(random_number);
         fprintf(file, "%llu, %llu\n", random_number, num_of_steps);
     }
     fclose(file);
