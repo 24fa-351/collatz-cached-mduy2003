@@ -25,15 +25,15 @@ FIFOCache *create_fifo_cache(int capacity)
 unsigned long long int get_from_lru_cache(LRUCache *cache, unsigned long long int key, int *cache_hits, int *cache_accesses)
 {
     (*cache_accesses)++;
-    for (int i = 0; i < cache->size; i++)
+    for (int ix = 0; ix < cache->size; ix++)
     {
-        if (cache->entries[i].key == key)   // If key is found, move it to the front of the cache
+        if (cache->entries[ix].key == key)   // If key is found, move it to the front of the cache
         {
             (*cache_hits)++; 
-            CacheEntry entry = cache->entries[i]; 
-            for (int j = i; j > 0; j--) 
+            CacheEntry entry = cache->entries[ix]; 
+            for (int jx = ix; jx > 0; jx--) 
             {
-                cache->entries[j] = cache->entries[j - 1]; 
+                cache->entries[jx] = cache->entries[jx - 1]; 
             }
             cache->entries[0] = entry; 
             return entry.value;
@@ -46,9 +46,9 @@ void put_in_lru_cache(LRUCache *cache, unsigned long long int key, unsigned long
 {
     if (cache->size < cache->capacity) // If cache is not full, add the new element to the front of the cache
     {
-        for (int i = cache->size; i > 0; i--)
+        for (int ix = cache->size; ix > 0; ix--)
         {
-            cache->entries[i] = cache->entries[i - 1];
+            cache->entries[ix] = cache->entries[ix - 1];
         }
         cache->entries[0].key = key; 
         cache->entries[0].value = value;
@@ -56,9 +56,9 @@ void put_in_lru_cache(LRUCache *cache, unsigned long long int key, unsigned long
     }
     else  // If cache is full, remove the last element and shift all elements to the right
     {
-        for (int i = cache->capacity - 1; i > 0; i--)
+        for (int ix = cache->capacity - 1; ix > 0; ix--)
         {
-            cache->entries[i] = cache->entries[i - 1];
+            cache->entries[ix] = cache->entries[ix - 1];
         }
         cache->entries[0].key = key; 
         cache->entries[0].value = value;
@@ -68,12 +68,12 @@ void put_in_lru_cache(LRUCache *cache, unsigned long long int key, unsigned long
 unsigned long long int get_from_fifo_cache(FIFOCache *cache, unsigned long long int key, int *cache_hits, int *cache_accesses)
 {
     (*cache_accesses)++;
-    for (int i = 0; i < cache->size; i++) // Searches for key and returns value if found
+    for (int ix = 0; ix < cache->size; ix++) // Searches for key and returns value if found
     {
-        if (cache->entries[(cache->front + i) % cache->capacity].key == key) 
+        if (cache->entries[(cache->front + ix) % cache->capacity].key == key) 
         {
             (*cache_hits)++;
-            return cache->entries[(cache->front + i) % cache->capacity].value;
+            return cache->entries[(cache->front + ix) % cache->capacity].value;
         }
     }
     return 0; // Not found
